@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: selfkeep
+
+
+
+server:
+  port: 9000
