@@ -26,6 +26,7 @@ public class UserService {
         User user = new User();
         user.setUsername(userRequest.username());
         user.setPassword(passwordEncoder.encode(userRequest.password()));
+        user.setEmail(userRequest.email());
 
         userRepository.save(user);
         return ResponseEntity.ok().build();
@@ -45,7 +46,7 @@ public class UserService {
             return ResponseEntity.badRequest().body(userResponse);
         }
 
-        Optional<User> userOptional = userRepository.findByEmail(userRequest.email());
+        Optional<User> userOptional = userRepository.findByEmailOrUsername(userRequest.email(), userRequest.username());
 
         if (userOptional.isPresent()) {
             return ResponseEntity.badRequest()
